@@ -1,0 +1,176 @@
+////
+/// @group breakpoints
+////
+
+/// The largest named breakpoint in which to include print as a media type
+/// @type Keyword
+$print-breakpoint: large !default;
+
+$-zf-zero-breakpoint: small !default;
+
+$-zf-breakpoints-keys: map-to-list($breakpoints, "keys");
+
+@if nth(map-values($breakpoints), 1) != 0 {
+	@error "The first key in the $breakpoints map must have a value of "0".";
+} @else {
+	$-zf-zero-breakpoint: nth(map-keys($breakpoints), 1);
+}
+
+/// Wraps a media query around the content you put inside the mixin. This mixin accepts a number of values:
+///  - If a string is passed, the mixin will look for it in the `$breakpoints` map, and use a media query there.
+///  - If a pixel value is passed, it will be converted to an em value using `$global-font-size` as the base.
+///  - If a rem value is passed, the unit will be changed to em.
+///  - If an em value is passed, the value will be used as-is.
+///
+/// If multiple values are passed, the mixin will generate a media query for each of them as described above.
+/// Since the content is duplicated for each breakpoint, this mixin should only be used with properties that
+/// change across breakpoints.
+///
+/// @param {Keyword|Number} $values... - Breakpoint name or px/rem/em value to process.
+///
+/// @output If the breakpoint is "0px and larger", outputs the content as-is. Otherwise, outputs the content wrapped in a media query.
+@mixin breakpoint($values...) {
+	@for $i from 1 through length($values) {
+		$value: nth($values, $i);
+		$str: breakpoint($value);
+		$bp: index($-zf-breakpoints-keys, $value);
+		$pbp: index($-zf-breakpoints-keys, $print-breakpoint);
+
+		$old-zf-size: null;
+
+		// Make breakpoint size available as a variable
+		@if global-variable-exists(-zf-size) {
+			$old-zf-size: $-zf-size;
+		}
+		$-zf-size: nth($value, 1) !global; // get the first value to account for `only` and `down` keywords
+
+		// If $str is still an empty string, no media query is needed
+		@if $str == "" {
+			@content;
+		} @else { // Otherwise, wrap the content in a media query
+			// For named breakpoints less than or equal to $print-breakpoint, add print to the media types
+			@if $bp != null and $bp <= $pbp {
+				@media print, screen and #{$str} {
+					@content;
+				}
+			} @else {
+				@media screen and #{$str} {
+					@content;
+				}
+			}
+		}
+
+		$-zf-size: $old-zf-size !global;
+	}
+}
+
+$small-up: "";
+$small-only: "";
+
+@if map-has-key($breakpoints, small) {
+	$small-up: screen;
+	$small-only: unquote("screen and #{breakpoint(small only)}");
+}
+
+$medium-up: "";
+$medium-only: "";
+
+@if map-has-key($breakpoints, medium) {
+	$medium-up: unquote("screen and #{breakpoint(medium)}");
+	$medium-only: unquote("screen and #{breakpoint(medium only)}");
+}
+
+$large-up: "";
+$large-only: "";
+
+@if map-has-key($breakpoints, large) {
+	$large-up: unquote("screen and #{breakpoint(large)}");
+	$large-only: unquote("screen and #{breakpoint(large only)}");
+}
+
+$xlarge-up: "";
+$xlarge-only: "";
+
+@if map-has-key($breakpoints, xlarge) {
+	$xlarge-up: unquote("screen and #{breakpoint(xlarge)}");
+	$xlarge-only: unquote("screen and #{breakpoint(xlarge only)}");
+}
+
+$xxlarge-up: "";
+
+@if map-has-key($breakpoints, xxlarge) {
+	$xxlarge-up: unquote("screen and #{breakpoint(xxlarge)}");
+}
+
+
+@mixin button($background, $color, $border, $size: normal, $expand: false) {
+	@include transition((border, background-color, color));
+	display: inline-block;
+	font-weight: $global-weight-bold;
+	font-size: 12px;
+	text-transform: uppercase;
+	text-align: center;
+	letter-spacing: 1.5px;
+	cursor: pointer;
+	text-decoration: none;
+
+	@if $color {
+		color: #{$color};
+	}
+
+	@if $background {
+		background-color: #{$background};
+	}
+
+	@if $border {
+		border: 2px solid #{$border};
+	}
+
+	@if $size == "normal" {
+		line-height: 21px;
+		padding: $spacing--tiny $spacing--large;
+		border-radius: 33px;
+	}
+
+	@if $size == "large" {
+		padding: $spacing $spacing--large;
+		border-radius: 57px;
+		font-size: 15px;
+		letter-spacing: 1.9px;
+	}
+
+	@if $expand {
+		width: 100%;
+	}
+
+	// Hover state, we check if the background is transparent, if so we will use the border color as the background color.
+	&:hover,
+	&:focus {
+		@if $background == transparent {
+			background: $border;
+			color: color-pick-contrast($border, ($charcoal, $white));
+		} @else {
+			background: darken($background, 10%);
+			color: color-pick-contrast($background, ($charcoal, $white));
+		}
+	}
+}
+
+/*
+  This mixin can be used to set the object-fit:
+  @include object-fit(contain);
+  or object-fit and object-position:
+  @include object-fit(cover, top);
+*/
+@mixin object-fit($fit: fill, $position: null) {
+	-o-object-fit: $fit;
+	object-fit: $fit;
+
+	@if $position {
+		font-family: "object-fit: #{$fit}; object-position: #{$position}";
+		-o-object-position: $position;
+		object-position: $position;
+	} @else {
+		font-family: "object-fit: #{$fit}";
+	}
+}

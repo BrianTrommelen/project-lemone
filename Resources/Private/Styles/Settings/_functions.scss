@@ -1,0 +1,391 @@
+/// Removes the unit (e.g. px, em, rem) from a value, returning the number only.
+///
+/// @param {Number} $num - Number to strip unit from.
+///
+/// @returns {Number} The same number, sans unit.
+@function strip-unit($num) {
+	@return $num / ($num * 0 + 1);
+}
+
+//rem base value
+$rem-base: 16px;
+
+/// Converts a pixel, percentage, rem or em value to a unitless value based on a given font size. Ideal for working out unitless line heights.
+///
+/// @param {Number} $value - Value to convert to a unitless line height
+/// @param {Number} $base - The font size to use to work out the line height - defaults to $global-font-size
+///
+/// @return {Number} - Unitless number
+@function unitless-calc($value, $base: null) {
+
+	// If no base is defined, defer to the global font size
+	@if $base == null {
+		$base: $global-font-size;
+	}
+
+	// First, lets convert our $base to pixels
+
+	// If the base font size is a %, then multiply it by 16px
+	@if unit($base) == "%" {
+		$base: ($base / 100%) * 16px;
+	}
+
+	@if unit($base) == "rem" {
+		$base: strip-unit($base) * 16px;
+	}
+
+	@if unit($base) == "em" {
+		$base: strip-unit($base) * 16px;
+	}
+
+	// Now let"s convert our value to pixels too
+	@if unit($value) == "%" {
+		$value: ($value / 100%) * $base;
+	}
+
+	@if unit($value) == "rem" {
+		$value: strip-unit($value) * $base;
+	}
+
+	@if unit($value) == "em" {
+		$value: strip-unit($value) * $base;
+	}
+
+	// "px"
+	@if unit($value) == "px" {
+		@return strip-unit($value) / strip-unit($base);
+	}
+
+	// assume that line-heights greater than 10 are meant to be absolute in "px"
+	@if unitless($value) and ($value > 10) {
+		@return $value / strip-unit($base);
+	}
+
+	@return $value;
+}
+
+
+//Converts maps to lists
+@function map-to-list($map, $keep: "both") {
+	$keep: if(index("keys" "values", $keep), $keep, "both");
+
+	@if type-of($map) == "map" {
+		$keys: ();
+		$values: ();
+
+		@each $key, $val in $map {
+			$keys: append($keys, $key);
+			$values: append($values, $val);
+		}
+
+		@if $keep == "keys" {
+			@return $keys;
+		} @else if $keep == "values" {
+			@return $values;
+		} @else {
+			@return zip($keys, $values);
+		}
+	}
+
+	@return if(type-of($map) != "list", ($value,), $map);
+}
+
+/// Find the next key in a map.
+/// @access private
+///
+/// @param {Map} $map - Map to traverse.
+/// @param {Mixed} $key - Key to use as a starting point.
+///
+/// @returns {Mixed} The value for the key after `$key`, if `$key` was found. If `$key` was not found, or `$key` was the last value in the map, returns `null`.
+@function -zf-map-next($map, $key) {
+
+	// Store the keys of the map as a list
+	$values: map-keys($map);
+
+	$i: 0;
+
+	// If the Key Exists, Get the index of the key within the map and add 1 to it for the next breakpoint in the map
+	@if (map-has-key($map, $key)) {
+		$i: index($values, $key) + 1;
+	}
+
+	// If the key doesn't exist, or it's the last key in the map, return null
+	@if ($i > length($map) or $i == 0) {
+		@return null;
+	} @else { // Otherwise, return the value
+		@return map-get($map, nth($values, $i));
+	}
+
+}
+
+/// Generates a media query string matching the input value. Refer to the documentation for the `breakpoint()` mixin to see what the possible inputs are.
+///
+/// @param {Keyword|Number} $val [small] - Breakpoint name, or px, rem, or em value to process.
+@function breakpoint($val: $-zf-zero-breakpoint) {
+	// Size or keyword
+	$bp: nth($val, 1);
+	// Value for max-width media queries
+	$bp-max: 0;
+	// Direction of media query (up, down, or only)
+	$dir: if(length($val) > 1, nth($val, 2), up);
+	// Eventual output
+	$str: "";
+	// Is it a named media query?
+	$named: false;
+
+	// Orientation media queries have a unique syntax
+	@if $bp == "landscape" or $bp == "portrait" {
+		@return "(orientation: #{$bp})";
+	} @else if $bp == "retina" {
+		@return "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
+	}
+
+	// Try to pull a named breakpoint out of the $breakpoints map
+	@if type-of($bp) == "string" {
+		@if map-has-key($breakpoints, $bp) {
+			@if $dir == "only" or $dir == "down" {
+				$bp-max: -zf-map-next($breakpoints, $bp);
+			}
+
+			$bp: map-get($breakpoints, $bp);
+			$named: true;
+		} @else {
+			$bp: 0;
+			@error "breakpoint(): "#{$val}" is not defined in your $breakpoints setting.";
+		}
+	}
+
+	// Max value is 0.2px under the next breakpoint (0.02 / 16 = 0.00125).
+	// Use a precision under 1px to support browser zoom, but not to low to avoid rounding.
+	// See https://github.com/zurb/foundation-sites/issues/11313
+	@if $bp-max {
+		$bp-max: $bp-max - 0.02px;
+	}
+
+	// Conditions to skip media query creation
+	// - It's a named breakpoint that resolved to "0 down" or "0 up"
+	// - It's a numeric breakpoint that resolved to "0 " + anything
+	@if $bp > 0 or $dir == "only" or $dir == "down" {
+		// `only` ranges use the format `(min-width: n) and (max-width: n)`
+		@if $dir == "only" {
+			// Only named media queries can have an "only" range
+			@if $named == true {
+				// Only use "min-width" if the floor is greater than 0
+				@if $bp > 0 {
+					$str: $str + "(min-width: #{$bp})";
+
+					// Only add "and" to the media query if there"s a ceiling
+					@if $bp-max != null {
+						$str: $str + " and ";
+					}
+				}
+
+				// Only use "max-width" if there's a ceiling
+				@if $bp-max != null {
+					$str: $str + "(max-width: #{$bp-max})";
+				}
+			} @else {
+				@error "breakpoint(): Only named media queries can have an `only` range.";
+			}
+		} @else if $dir == "down" { // `down` ranges use the format `(max-width: n)`
+			$max: if($named, $bp-max, $bp);
+
+			// Skip media query creation if input value is exactly "0 down",
+			// unless the function was called as "small down", in which case it"s just "small only"
+			@if $named or $bp > 0 {
+				@if $max != null {
+					$str: $str + "(max-width: #{$max})";
+				}
+			}
+		} @else if $bp > 0 { // `up` ranges use the format `(min-width: n)`
+			$str: $str + "(min-width: #{$bp})";
+		}
+	}
+
+	@return $str;
+}
+
+
+/// Converts the breakpoints map to a URL-encoded string, like this: `key1=value1&key2=value2`. The value is then dropped into the CSS for a special `<meta>` tag, which is read by the Foundation JavaScript. This is how we transfer values from Sass to JavaScript, so they can be defined in one place.
+/// @access private
+///
+/// @param {Map} $map - Map to convert.
+///
+/// @returns {String} A string containing the map's contents.
+@function -zf-bp-serialize($map) {
+	$str: "";
+	@each $key, $value in $map {
+		$str: $str + $key + "=" + $value + "&";
+	}
+	$str: str-slice($str, 1, -2);
+
+	@return $str;
+}
+
+/// Return a list of our named breakpoints less than $key. Useful for dealing with
+/// responsive gutters for the grid.
+/// @access private
+///
+/// @param {String} $key - Key to use as last breakpoint.
+///
+/// @returns {Array} The list of breakpoints up to and. If $key is auto, returns breakpoints above the zero
+@function -zf-breakpoints-less-than($key) {
+	$list: ();
+	$found_key: false;
+
+	@each $name in $-zf-breakpoints-keys {
+		@if ($name == $key) {
+			$found_key: true;
+		}
+		@if not $found_key {
+			$list: append($list, $name);
+		}
+	}
+	@return $list;
+}
+
+/// Return a list of our named breakpoints less than $key. Useful for dealing with
+/// responsive gutters for the grid.
+/// @access private
+///
+/// @param {String} $breakpoint - a named or non-named breakpoint.
+///
+/// @returns {Array} The list of breakpoints up to and. If $key is auto, returns breakpoints above the zero
+@function -zf-closest-named-breakpoint($breakpoint) {
+	$last: $-zf-zero-breakpoint;
+	$found: false;
+
+	$value: unitless-calc($breakpoint, 1px);
+	@each $key, $val in $breakpoints {
+		@if not $found {
+			@if unitless-calc($val) > $value {
+				$found: true;
+			} @else {
+				$last: $key;
+			}
+		}
+	}
+
+	@return $last;
+}
+
+/// Get a value for a breakpoint from a responsive config map or single value.
+/// - If the config is a single value, return it regardless of `$value`.
+/// - If the config is a map and has the key `$value`, the exact breakpoint value is returned.
+/// - If the config is a map and does *not* have the breakpoint, the value matching the next lowest breakpoint in the config map is returned.
+/// @access private
+///
+/// @param {Number|Map} $map - Responsive config map or single value.
+/// @param {Keyword} $value - Breakpoint name to use.
+///
+/// @return {Mixed} The corresponding breakpoint value.
+@function -zf-get-bp-val($map, $value) {
+	// If the given map is a single value, return it
+	@if type-of($map) == "number" {
+		@return $map;
+	}
+
+
+	// Check if the breakpoint name exists globally
+	@if not map-has-key($breakpoints, $value) {
+		@if type-of($value) == "number" {
+			$value: -zf-closest-named-breakpoint($value);
+		} @else {
+			@return null;
+		}
+	} @else if map-has-key($map, $value) { // Check if the breakpoint name exists in the local config map
+		// If it does, just return the value
+		@return map-get($map, $value);
+	} @else { // Otherwise, find the next lowest breakpoint and return that value
+		$anchor: null;
+		$found: false;
+
+		@each $key, $val in $breakpoints {
+			@if not $found {
+				@if map-has-key($map, $key) {
+					$anchor: $key;
+				}
+				@if $key == $value {
+					$found: true;
+				}
+			}
+		}
+
+		@return map-get($map, $anchor);
+	}
+}
+
+/// Return the best breakpoint to use according to the calling context. It returns in order:
+/// 1. the given `$value` argument if it is not null.
+/// 2. the global breakpoint context `$-zf-size` if it is not null (like if called inside then `breakpoint()` mixin)
+/// 3. the given `$default` argument.
+/// @access private
+///
+/// @param {Keyword} $value [null] - Breakpoint to use in priority if non-null.
+/// @param {Keyword} $default [null] - Breakpoint to use by default if no other value can be used.
+///
+/// @return {Keyword} The resolved breakpoint.
+@function -zf-current-breakpoint($value: null, $default: null) {
+	@if ($value != null) {
+		@return $value;
+	} @else if (variable-exists(-zf-size) and type-of($-zf-size) != "number") and $-zf-size != null {
+		@return $-zf-size;
+	} @else {
+		@return $default;
+	}
+}
+
+/// Removes the unit (e.g. px, em, rem) from a value, returning the number only.
+///
+/// @param {Number} $num - Number to strip unit from.
+///
+/// @returns {Number} The same number, sans unit.
+@function strip-unit($num) {
+	@return $num / ($num * 0 + 1);
+}
+
+/// Converts a pixel value to matching rem value. *Any* value passed, regardless of unit, is assumed to be a pixel value. By default, the base pixel value used to calculate the rem value is taken from the `$rem-base` variable.
+/// @access private
+///
+/// @param {Number} $value - Pixel value to convert.
+/// @param {Number} $base [$rem-base] - Base for pixel conversion.
+///
+/// @returns {Number} A number in rems, calculated based on the given value and the base pixel value. rem values are passed through as is.
+@function -zf-to-rem($value, $base: $rem-base) {
+	// Calculate rem if units for $value is not rem
+	@if (unit($value) != 'rem') {
+		$value: strip-unit($value) / strip-unit($base) * 1rem;
+	}
+	// Turn 0rem into 0
+	@if ($value == 0rem) { $value: 0; }
+	@return $value;
+}
+
+// This is the default html and body font-size for the base rem value.
+$rem-base: 16px !default;
+$global-font-size: 100% !default;
+
+/// Converts one or more pixel values into matching rem values.
+///
+/// @param {Number|List} $values - One or more values to convert. Be sure to separate them with spaces and not commas. If you need to convert a comma-separated list, wrap the list in parentheses.
+/// @param {Number} $base [$rem-base] - The base value to use when calculating the `rem`. If you're using Foundation out of the box, this is 16px.
+///
+/// @returns {List} A list of converted values.
+@function rem-calc($values, $base: $rem-base) {
+	$rem-values: ();
+	$count: length($values);
+
+	@if $base == null {
+		$base: $rem-base;
+	}
+
+	@if $count == 1 {
+		@return -zf-to-rem($values, $base);
+	}
+
+	@for $i from 1 through $count {
+		$rem-values: append($rem-values, -zf-to-rem(nth($values, $i), $base));
+	}
+
+	@return $rem-values;
+}

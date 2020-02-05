@@ -1,0 +1,24 @@
+$breakpoint-classes: (small medium large xlarge);
+
+$breakpoints: (
+	small: 0,
+	medium: 768px,
+	large: 992px,
+	xlarge: 1200px,
+) !default;
+
+//Starlease Colors
+$starLease-white: #fffff;
+$starLease-black: #090c2c;
+$starLease-lightGrey: #f6f7f8;
+$starLease-Grey: #6a6f83;
+$starLease-lightBlue: #008dff;
+$starLease-green: #29b282;
+$starLease-purple: #161d6c;
+$starLease-pink: #ff4879;
+
+//Starlease fontsizes
+$paragraph-font-size: rem-calc(18px);
+
+$h1-font-size: rem-calc(54px);
+$h2-font-size: rem-calc(34px);
