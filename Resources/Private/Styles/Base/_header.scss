@@ -29,7 +29,7 @@
 
 	.nav__item {
 		display: none;
-		padding: rem-calc(8px) rem-calc(12px);
+		padding: rem-calc(7px) rem-calc(12px);
 
 		@include breakpoint(xlarge) {
 			display: block;
@@ -49,11 +49,27 @@
 
 	.nav__email {
 		margin-left: rem-calc(16px);
+		padding: rem-calc(7px) 0;
+		padding-right: rem-calc(7px);
+
+		@include breakpoint(medium) {
+			margin-left: rem-calc(32px);
+			padding-right: rem-calc(14px);
+		}
 	}
 
-	 .nav__email, .nav__phone {
+	.nav__phone {
+		padding: rem-calc(7px) 0;
+		padding-left: rem-calc(7px);
+
+		@include breakpoint(medium) {
+			padding-left: rem-calc(14px);
+		}
+	}
+
+	.nav__email, .nav__phone {
 		display: block;
-	 	padding: rem-calc(8px) rem-calc(12px);
+
 
 		&--link {
 			display: flex;
@@ -93,5 +109,5 @@
 				line-height: 18px;
 			}
 		}
-	 }
+	}
 }

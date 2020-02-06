@@ -1,3 +1,8 @@
+* {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
 html {
 	position:relative;
 	min-height: 100%;
@@ -9,11 +14,11 @@ body {
 }
 
 .content__wrapper {
-	//margin-bottom: rem-calc(285px);
-	//
-	//@include breakpoint(large) {
-	//	margin-bottom: rem-calc(170px);
-	//}
+	margin-bottom: rem-calc(270px);
+
+	@include breakpoint(large) {
+		margin-bottom: rem-calc(150px);
+	}
 }
 
 ul {
@@ -40,8 +45,15 @@ p {
 }
 
 h1 {
+	margin: 24px 0;
 	font-size: rem-calc(36px);
+	line-height: 38px;
 	color: $starLease-purple;
+
+	@include breakpoint(large) {
+		font-size: rem-calc(54px);
+		line-height: rem-calc(60px);
+	}
 }
 
 h2 {
