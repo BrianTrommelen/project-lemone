@@ -7,12 +7,17 @@
 	height: rem-calc(285px);
 
 	@include breakpoint(large) {
-		height: rem-calc(170px);
+		height: rem-calc(150px);
 	}
 
 	&--container {
 		padding-top: rem-calc(40px);
 		padding-bottom: rem-calc(40px);
+
+		@include breakpoint(large) {
+			padding-top: rem-calc(62px);
+			padding-bottom: rem-calc(62px);
+		}
 	}
 
 	.footer__logo {
@@ -27,10 +32,14 @@
 
 	.copyright {
 		&--text {
-			margin: 0;
+			margin: 10px 0 0;
 			font-size: rem-calc(14px);
-			padding: 6px 0;
 			line-height: 24px;
+
+			@include breakpoint(large) {
+				margin: 0;
+				padding: 6px 0;
+			}
 		}
 	}
 
