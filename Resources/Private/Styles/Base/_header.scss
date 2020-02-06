@@ -1,0 +1,97 @@
+.header {
+	padding-top: rem-calc(16px);
+
+	@include breakpoint(large) {
+		padding-top: rem-calc(32px);
+	}
+
+	&--wrapper {
+		display: flex;
+		padding-top: rem-calc(10px);
+		padding-bottom: rem-calc(10px);
+	}
+}
+
+.logo {
+	&--link {
+		display: inline-block;
+	}
+
+	&--svg {
+		padding: rem-calc(7px) 0;
+	}
+}
+
+.nav {
+	margin: 0 0 0 auto;
+	display: flex;
+	flex-direction: row;
+
+	.nav__item {
+		display: none;
+		padding: rem-calc(8px) rem-calc(12px);
+
+		@include breakpoint(xlarge) {
+			display: block;
+		}
+
+		&--link {
+			text-decoration: none;
+		}
+
+		&--text {
+			margin: 0;
+			color: $starLease-purple;
+			font-weight: 600;
+			line-height: rem-calc(18px);
+		}
+	}
+
+	.nav__email {
+		margin-left: rem-calc(16px);
+	}
+
+	 .nav__email, .nav__phone {
+		display: block;
+	 	padding: rem-calc(8px) rem-calc(12px);
+
+		&--link {
+			display: flex;
+			text-decoration: none;
+		}
+
+		&--svg {
+			width: rem-calc(22px);
+			height: rem-calc(22px);
+
+			@include breakpoint(medium) {
+				width: rem-calc(24px);
+				height: rem-calc(24px);
+			}
+
+			@include breakpoint(xlarge) {
+				width: rem-calc(18px);
+				height: rem-calc(18px);
+			}
+		}
+
+		&--text {
+			display: none;
+			margin: 0;
+			padding-left: 10px;
+			font-weight: 600;
+			font-size: rem-calc(16px);
+			line-height: 24px;
+			letter-spacing: 0.3px;
+			color: $starLease-lightBlue;
+
+			@include breakpoint(medium) {
+				display: block;
+			}
+
+			@include breakpoint(xlarge) {
+				line-height: 18px;
+			}
+		}
+	 }
+}

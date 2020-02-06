@@ -1,5 +1,24 @@
-ul {
+html {
+	position:relative;
+	min-height: 100%;
+}
 
+body {
+	margin: 0;
+	font-family: 'DM Sans', sans-serif;
+}
+
+.content__wrapper {
+	//margin-bottom: rem-calc(285px);
+	//
+	//@include breakpoint(large) {
+	//	margin-bottom: rem-calc(170px);
+	//}
+}
+
+ul {
+	padding: 0;
+	list-style: none;
 }
 
 li {
@@ -11,15 +30,18 @@ div {
 }
 
 a {
-
+	color: $starLease-Grey;
 }
 
 p {
-
+	font-size: rem-calc(16px);
+	color: $starLease-Grey;
+	line-height: rem-calc(26px);
 }
 
 h1 {
-
+	font-size: rem-calc(36px);
+	color: $starLease-purple;
 }
 
 h2 {
