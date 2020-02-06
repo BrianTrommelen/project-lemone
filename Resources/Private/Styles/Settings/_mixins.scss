@@ -1,3 +1,38 @@
+// General button mixin
+
+@mixin pinkbutton {
+	display: inline-grid;
+	position: relative;
+	width: 224px;
+	height: 60px;
+	border-radius: 30px;
+	background-color: #ff4879;
+	text-decoration: none;
+
+	&:before {
+		content: '';
+		width: 12px;
+		height: 2px;
+		background-color: white;
+		top: 28px;
+		right: 25px;
+		position: absolute;
+	}
+
+	&:after {
+		content: '';
+		width: 6px;
+		height: 6px;
+		background-color: transparent;
+		top: 26px;
+		right: 24px;
+		position: absolute;
+		border-right: 2px solid white;
+		border-bottom: 2px solid white;
+		transform: rotate(-45deg);
+	}
+}
+
 ////
 /// @group breakpoints
 ////
