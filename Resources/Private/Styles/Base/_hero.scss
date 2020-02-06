@@ -71,21 +71,17 @@
 
 		&--button {
 			@include pinkbutton;
-
-			&-text {
-				text-align: center;
-				display: inline-block;
-				font-weight: 700;
-				color: $starLease-white;
-			}
 		}
 	}
 
 	.hero__details {
 		display: flex;
+		margin-bottom: rem-calc(40px);
 		background-color: $starLease-purple;
 
 		@include breakpoint(large) {
+			margin-bottom: rem-calc(120px);
+
 			&--list {
 				margin: 40px 0;
 				display: flex;
@@ -95,7 +91,7 @@
 
 		&--item {
 			position: relative;
-			margin-bottom: 15px;
+			margin-bottom: 10px;
 			padding-left: 50px;
 			color: $starLease-white;
 			font-weight: 700;
@@ -129,7 +125,7 @@
 				content: '';
 				display: block;
 				width: 8px;
-				height: 12px;
+				height: 13px;
 				border: solid #29b282;
 				border-width: 0 3px 3px 0;
 				position: absolute;

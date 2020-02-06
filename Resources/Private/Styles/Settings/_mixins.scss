@@ -1,20 +1,23 @@
 // General button mixin
 
 @mixin pinkbutton {
-	display: inline-grid;
+	display: inline-block;
+	padding: 18px 60px 18px 40px;
 	position: relative;
-	width: 224px;
-	height: 60px;
 	border-radius: 30px;
 	background-color: #ff4879;
 	text-decoration: none;
+	text-align: center;
+	font-weight: 700;
+	color: #fff;
+	line-height: 24px;
 
 	&:before {
 		content: '';
 		width: 12px;
 		height: 2px;
 		background-color: white;
-		top: 28px;
+		top: 29px;
 		right: 25px;
 		position: absolute;
 	}
@@ -24,7 +27,7 @@
 		width: 6px;
 		height: 6px;
 		background-color: transparent;
-		top: 26px;
+		top: 27px;
 		right: 24px;
 		position: absolute;
 		border-right: 2px solid white;
