@@ -42,6 +42,10 @@ p {
 	font-size: rem-calc(16px);
 	color: $starLease-Grey;
 	line-height: rem-calc(26px);
+
+	@include breakpoint(medium) {
+		font-size: rem-calc(18px);
+	}
 }
 
 h1 {
@@ -57,7 +61,15 @@ h1 {
 }
 
 h2 {
+	margin-bottom: 20px;
+	font-size: rem-calc(28px);
+	color: $starLease-purple;
+	line-height: rem-calc(30px);
 
+	@include breakpoint(large) {
+		font-size: rem-calc(34px);
+		line-height: rem-calc(38px);
+	}
 }
 
 h3 {

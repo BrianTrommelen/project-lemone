@@ -1,0 +1,153 @@
+.private-lease {
+	&--wrapper {
+
+	}
+	&--container {
+
+	}
+
+	.private-lease__portrait {
+		@include breakpoint(medium) {
+			&--border {
+				&:before {
+					content: '';
+					display: block;
+					position: absolute;
+					left: -22%;
+					bottom: -26%;
+					width: 300px;
+					height: 200px;
+					background-color: $starLease-lightGrey;
+					z-index: -1;
+					transform: skewX(-20deg);
+
+					@include breakpoint(large) {
+						bottom: -8%;
+						width: 800px;
+						height: 400px;
+					}
+				}
+
+				&:after {
+					content: '';
+					display: block;
+					position: absolute;
+					left: 16%;
+					bottom: -3%;
+					width: 30px;
+					height: 15px;
+					background-color: $starLease-lightBlue;
+					transform: skewX(-30deg);
+
+					@include breakpoint(large) {
+						width: 50px;
+						height: 30px;
+					}
+				}
+			}
+		}
+
+		&--border {
+			position: relative;
+		}
+
+		&--image {
+			width: 100%;
+
+			@include breakpoint(medium only) {
+				max-width: rem-calc(200px);
+			}
+		}
+	}
+
+	.private-lease__information {
+		@include breakpoint(medium) {
+			padding-top: rem-calc(40px);
+
+			&--heading {
+				&:after {
+					content: '';
+					display: block;
+					position: absolute;
+					right: 0%;
+					top: -3%;
+					width: 50px;
+					height: 30px;
+					background-color: $starLease-lightBlue;
+					transform: skewX(-30deg);
+				}
+			}
+		}
+
+		&--text {
+			line-height: 1.63;
+			color: $starLease-Grey;
+		}
+
+		&--button {
+			@include pinkbutton;
+
+			&-text {
+
+			}
+		}
+
+		&--checklists {
+			display: flex;
+			flex-direction: column;
+			padding-bottom: 30px;
+
+			@include breakpoint(medium) {
+				flex-direction: row;
+
+				& > ul {
+					width: 50%;
+				}
+			}
+		}
+
+		&--list {
+			margin: 0;
+
+			&:first-child {
+				.private-lease__information--item {
+					max-width: 90%;
+				}
+			}
+		}
+
+		&--item {
+			position: relative;
+			margin-bottom: 10px;
+			padding-left: 50px;
+			color: $starLease-purple;
+			font-weight: 700;
+			line-height: 30px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			&:after {
+				content: '';
+				display: block;
+				width: 10px;
+				height: 15px;
+				border: solid #29b282;
+				border-width: 0 4px 4px 0;
+				position: absolute;
+				left: 12px;
+				top: 7px;
+				transform: rotate(45deg);
+
+				@include breakpoint(large) {
+					width: 10px;
+					height: 17px;
+					border-width: 0 4px 4px 0;
+					left: 15px;
+					top: 9px;
+				}
+			}
+		}
+	}
+}
