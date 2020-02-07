@@ -1,0 +1,104 @@
+.ideal-car {
+	&--wrapper {
+		padding: 120px 0 80px;
+	}
+
+	.ideal-car__information {
+		padding-bottom: 20px;
+
+		&--specsheet {
+			display: inline-block;
+			position: relative;
+			margin: 16px 0;
+			color: $starLease-pink;
+			text-decoration: none;
+			font-weight: 600;
+
+			&:before {
+				content: '';
+				position: absolute;
+				display: inline-block;
+				width: 12px;
+				background-color: $starLease-pink;
+				height: 2px;
+				right: -25px;
+				top: 8px;
+			}
+			&:after {
+				content: '';
+				position: absolute;
+				display: inline-block;
+				width: 12px;
+				background-color: $starLease-pink;
+				height: 2px;
+				right: -25px;
+				top: 8px;
+				transform: rotate(90deg);
+			}
+		}
+	}
+
+	.ideal-car__table {
+		position: relative;
+		display: inline-block;
+		margin: 16px 0;
+		width: 100%;
+
+		tbody {
+			display: inline-flex;
+			flex-direction: column;
+			width: 100%;
+		}
+
+		&--row {
+			padding: 16px 0;
+
+			&:first-child {
+				padding: 0 0 16px 0;
+			}
+
+			&:last-child {
+				padding: 16px 0 0 0;
+			}
+
+			td {
+				color: $starLease-purple;
+			}
+
+			td:first-child {
+				display: inline-block;
+				width: 40%;
+				font-weight: 600;
+
+				&:before {
+					content: '';
+					margin-right: 20px;
+					width: 8px;
+					height: 8px;
+					background-color: $starLease-green;
+					border-radius: 50%;
+					display: inline-table;
+					position: relative;
+					bottom: 8px;
+				}
+			}
+
+			td:last-child {
+				display: inline;
+				width: 60%
+			}
+		}
+	}
+
+	.ideal-car__portrait {
+		padding: 20px 0;
+
+		&--border {
+			position: relative;
+		}
+
+		&--image {
+			width: 100%;
+		}
+	}
+}
