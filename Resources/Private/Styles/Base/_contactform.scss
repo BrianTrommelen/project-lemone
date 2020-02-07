@@ -1,7 +1,7 @@
 .contact {
 	position: relative;
 	&--wrapper {
-		padding: 20px 0;
+		padding: rem-calc(20px) 0;
 		background-color: $starLease-lightGrey;
 
 		&:before {
@@ -9,9 +9,9 @@
 			display: block;
 			position: absolute;
 			left: 50%;
-			width: 60px;
-			top: -10px;
-			height: 25px;
+			width: rem-calc(60px);
+			top: rem-calc(-10px);
+			height: rem-calc(25px);
 			background-color: $starLease-lightBlue;
 			transform: skewX(-15deg);
 		}
@@ -19,22 +19,22 @@
 			content: '';
 			position: absolute;
 			display: block;
-			border-bottom: 50px solid $starLease-lightBlue;
-			border-right: 50px solid transparent;
+			border-bottom: rem-calc(50px) solid $starLease-lightBlue;
+			border-right: rem-calc(50px) solid transparent;
 			bottom: 0;
 			left: 0;
 		}
 
 		@include breakpoint(medium) {
 			&:after {
-				border-bottom: 75px solid $starLease-lightBlue;
-				border-right: 75px solid transparent;
+				border-bottom: rem-calc(75px) solid $starLease-lightBlue;
+				border-right: rem-calc(75px) solid transparent;
 			}
 		}
 	}
 
 	.contact__heading {
-		padding-bottom: 15px;
+		padding-bottom: rem-calc(15px);
 		display: flex;
 		flex-direction: column;
 
@@ -48,7 +48,7 @@
 
 		&--link {
 			display: flex;
-			padding: 10px 0;
+			padding: rem-calc(10px) 0;
 			text-decoration: none;
 		}
 
@@ -68,10 +68,10 @@
 
 		&--text {
 			margin: 0;
-			padding-left: 10px;
+			padding-left: rem-calc(10px);
 			font-weight: 600;
 			font-size: rem-calc(16px);
-			line-height: 18px;
+			line-height: rem-calc(18px);
 			letter-spacing: 0.3px;
 			color: $starLease-lightBlue;
 		}
@@ -80,26 +80,26 @@
 	.contact__form {
 		display: flex;
 		flex-wrap: wrap;
-		padding-top: 15px;
+		padding-top: rem-calc(15px);
 
 		&--wrapper {
 			padding-bottom: rem-calc(80px);
 
 			@include breakpoint(large) {
-				padding-top: 20px;
+				padding-top: rem-calc(20px);
 			}
 		}
 
 		&--label {
 			position: relative;
-			margin-bottom: 10px;
+			margin-bottom: rem-calc(10px);
 			color: $starLease-purple;
 			font-weight: 700;
-			line-height: 30px;
+			line-height: rem-calc(30px);
 		}
 
 		&--input {
-			padding: 10px;
+			padding: rem-calc(10px);
 			height: rem-calc(40px);
 			font-size: rem-calc(16px);
 			outline-color: $starLease-lightBlue;
@@ -117,20 +117,20 @@
 			border: none;
 
 			@include breakpoint(medium) {
-				margin: 18px 0 18px auto;
+				margin: rem-calc(18px) 0 rem-calc(18px) auto;
 			}
 		}
 
 		&--validation {
-			padding: 5px;
+			padding: rem-calc(5px);
 			color: $starLease-pink;
-			font-size: 14px;
+			font-size: rem-calc(14px);
 		}
 	}
 
 	.contact__form__block {
 		display: flex;
-		padding: 15px 0;
+		padding: rem-calc(15px) 0;
 		width: 100%;
 		flex-direction: column;
 
@@ -141,10 +141,10 @@
 		@include breakpoint(medium) {
 			&[class*="col-md"] {
 				&:nth-child(even) {
-					padding-left: 10px;
+					padding-left: rem-calc(10px);
 				}
 				&:nth-child(odd) {
-					padding-right: 10px;
+					padding-right: rem-calc(10px);
 				}
 				//Detect last 2 items
 				&:nth-last-child(-n+2) {
@@ -162,7 +162,7 @@
 				font-size: rem-calc(18px);
 
 				@include breakpoint(medium) {
-					margin: 18px 0;
+					margin: rem-calc(18px) 0;
 				}
 			}
 
