@@ -23,7 +23,7 @@
 
 					@include breakpoint(large) {
 						bottom: -8%;
-						width: 700px;
+						width: 800px;
 						height: 400px;
 					}
 				}
@@ -99,6 +99,10 @@
 
 			@include breakpoint(medium) {
 				flex-direction: row;
+
+				& > ul {
+					width: 50%;
+				}
 			}
 		}
 
