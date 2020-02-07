@@ -96,10 +96,10 @@
 		&--text {
 			display: none;
 			margin: 0;
-			padding-left: 10px;
+			padding-left: rem-calc(10px);
 			font-weight: 600;
 			font-size: rem-calc(16px);
-			line-height: 24px;
+			line-height: rem-calc(24px);
 			letter-spacing: 0.3px;
 			color: $starLease-lightBlue;
 
@@ -108,7 +108,7 @@
 			}
 
 			@include breakpoint(xlarge) {
-				line-height: 18px;
+				line-height: rem-calc(18px);
 			}
 		}
 	}

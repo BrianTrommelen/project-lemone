@@ -26,14 +26,6 @@ ul {
 	list-style: none;
 }
 
-li {
-
-}
-
-div {
-
-}
-
 a {
 	color: $starLease-Grey;
 	cursor: pointer;
@@ -44,7 +36,7 @@ a {
 }
 
 button {
-	font-size: 16px;
+	font-size: rem-calc(16px);
 
 	&:hover {
 		opacity: 0.8;
@@ -62,9 +54,9 @@ p {
 }
 
 h1 {
-	margin: 24px 0;
+	margin: rem-calc(24px) 0;
 	font-size: rem-calc(36px);
-	line-height: 38px;
+	line-height: rem-calc(38px);
 	color: $starLease-purple;
 
 	@include breakpoint(large) {
@@ -74,7 +66,7 @@ h1 {
 }
 
 h2 {
-	margin-bottom: 20px;
+	margin-bottom: rem-calc(20px);
 	font-size: rem-calc(28px);
 	color: $starLease-purple;
 	line-height: rem-calc(30px);
@@ -83,20 +75,4 @@ h2 {
 		font-size: rem-calc(34px);
 		line-height: rem-calc(38px);
 	}
-}
-
-h3 {
-
-}
-
-h4 {
-
-}
-
-h5 {
-
-}
-
-h6 {
-
 }

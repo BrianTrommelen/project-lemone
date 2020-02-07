@@ -43,8 +43,8 @@
 				display: block;
 				position: absolute;
 				right: -75%;
-				width: 30px;
-				height: 15px;
+				width: rem-calc(30px);
+				height: rem-calc(15px);
 				background-color: $starLease-pink;
 				transform: skewX(-15deg);
 			}
@@ -52,7 +52,7 @@
 
 		&--text {
 			font-size: rem-calc(18px);
-			line-height: 30px;
+			line-height: rem-calc(30px);
 			max-width: 90%;
 
 			&:before {
@@ -61,8 +61,8 @@
 					display: block;
 					position: absolute;
 					left: -7%;
-					width: 30px;
-					height: 15px;
+					width: rem-calc(30px);
+					height: rem-calc(15px);
 					background-color: $starLease-lightBlue;
 					transform: skewX(15deg);
 				}
@@ -83,7 +83,7 @@
 			margin-bottom: rem-calc(120px);
 
 			&--list {
-				margin: 40px 0;
+				margin: rem-calc(40px) 0;
 				display: flex;
 				justify-content: space-around;
 			}
@@ -91,15 +91,15 @@
 
 		&--item {
 			position: relative;
-			margin-bottom: 10px;
-			padding-left: 50px;
+			margin-bottom: rem-calc(10px);
+			padding-left: rem-calc(50px);
 			color: $starLease-white;
 			font-weight: 700;
-			line-height: 30px;
+			line-height: rem-calc(30px);
 
 			@include breakpoint(large) {
 				margin-bottom: 0;
-				line-height: 40px;
+				line-height: rem-calc(40px);
 			}
 
 			&:last-child {
@@ -110,35 +110,35 @@
 				content: '';
 				position: absolute;
 				left: 0;
-				width: 30px;
-				height: 30px;
+				width: rem-calc(30px);
+				height: rem-calc(30px);
 				background-color: white;
 				border-radius: 50%;
 
 				@include breakpoint(large) {
-					width: 40px;
-					height: 40px;
+					width: rem-calc(40px);
+					height: rem-calc(40px);
 				}
 			}
 
 			&:after {
 				content: '';
 				display: block;
-				width: 8px;
-				height: 13px;
+				width: rem-calc(8px);
+				height: rem-calc(13px);
 				border: solid #29b282;
-				border-width: 0 3px 3px 0;
+				border-width: 0 rem-calc(3px) rem-calc(3px) 0;
 				position: absolute;
-				left: 12px;
-				top: 7px;
+				left: rem-calc(12px);
+				top: rem-calc(7px);
 				transform: rotate(45deg);
 
 				@include breakpoint(large) {
-					width: 10px;
-					height: 17px;
-					border-width: 0 4px 4px 0;
-					left: 15px;
-					top: 9px;
+					width: rem-calc(10px);
+					height: rem-calc(17px);
+					border-width: 0 rem-calc(4px) rem-calc(4px) 0;
+					left: rem-calc(15px);
+					top: rem-calc(9px);
 				}
 			}
 		}

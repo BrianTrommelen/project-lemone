@@ -1,19 +1,19 @@
 .ideal-car {
 	&--wrapper {
-		padding: 40px 0 40px;
+		padding: rem-calc(40px) 0 rem-calc(40px);
 
 		@include breakpoint(large) {
-			padding: 80px 0 80px;
+			padding: rem-calc(80px) 0 rem-calc(80px);
 		}
 	}
 
 	.ideal-car__information {
-		padding-bottom: 20px;
+		padding-bottom: rem-calc(20px);
 
 		&--specsheet {
 			display: inline-block;
 			position: relative;
-			margin: 16px 0;
+			margin: rem-calc(16px) 0;
 			color: $starLease-pink;
 			text-decoration: none;
 			font-weight: 600;
@@ -22,21 +22,21 @@
 				content: '';
 				position: absolute;
 				display: inline-block;
-				width: 12px;
+				width: rem-calc(12px);
 				background-color: $starLease-pink;
-				height: 2px;
-				right: -25px;
-				top: 8px;
+				height: rem-calc(2px);
+				right: rem-calc(-25px);
+				top: rem-calc(8px);
 			}
 			&:after {
 				content: '';
 				position: absolute;
 				display: inline-block;
-				width: 12px;
+				width: rem-calc(12px);
 				background-color: $starLease-pink;
-				height: 2px;
-				right: -25px;
-				top: 8px;
+				height: rem-calc(2px);
+				right: rem-calc(-25px);
+				top: rem-calc(8px);
 				transform: rotate(90deg);
 			}
 		}
@@ -45,7 +45,7 @@
 	.ideal-car__table {
 		position: relative;
 		display: inline-block;
-		margin: 16px 0;
+		margin: rem-calc(16px) 0;
 		width: 100%;
 
 		tbody {
@@ -55,14 +55,14 @@
 		}
 
 		&--row {
-			padding: 16px 0;
+			padding: rem-calc(16px) 0;
 
 			&:first-child {
-				padding: 0 0 16px 0;
+				padding: 0 0 rem-calc(16px) 0;
 			}
 
 			&:last-child {
-				padding: 16px 0 0 0;
+				padding: rem-calc(16px) 0 0 0;
 			}
 
 			td {
@@ -76,14 +76,14 @@
 
 				&:before {
 					content: '';
-					margin-right: 20px;
-					width: 8px;
-					height: 8px;
+					margin-right: rem-calc(20px);
+					width: rem-calc(8px);
+					height: rem-calc(8px);
 					background-color: $starLease-green;
 					border-radius: 50%;
 					display: inline-table;
 					position: relative;
-					bottom: 8px;
+					bottom: rem-calc(8px);
 				}
 			}
 
@@ -95,7 +95,7 @@
 	}
 
 	.ideal-car__portrait {
-		padding: 20px 0;
+		padding: rem-calc(20px) 0;
 
 		&--border {
 			position: relative;
