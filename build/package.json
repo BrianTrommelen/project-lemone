@@ -1,12 +1,12 @@
 {
   "name": "intake",
   "version": "1.0.0",
-  "description": "Gulp package for stagewerkstuk",
+  "description": "Gulp package for intake",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Brian Trommelen brian.trommelen@maxserv.com",
+  "author": "Brian Trommelen brian.trommelen@protonmail.com",
   "license": "ISC",
   "dependencies": {
     "jquery": "^3.4.1",
