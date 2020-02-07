@@ -2,6 +2,7 @@
 Intake Lemone
 
 clone project and run `npm install` to download the needed npm packages.
+Run the Gulp task `sass` to generate a css file before opening the HTML.
 
 WIP list:
   Add more form validations.
