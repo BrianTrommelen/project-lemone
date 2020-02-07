@@ -36,6 +36,19 @@ div {
 
 a {
 	color: $starLease-Grey;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
+button {
+	font-size: 16px;
+
+	&:hover {
+		opacity: 0.8;
+	}
 }
 
 p {

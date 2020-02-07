@@ -1,8 +1,10 @@
 <html lang="EN">
 	<head>
-		<title>Lemone</title>
+		<title>Starlease - intake</title>
 		<link rel="stylesheet" href="../../../Public/Styles/Styles.css">
+		<link rel="icon" type="image/png" sizes="32x32" href="../../../Public/Images/favicon-32x32.png">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="../../../Public/Javascript/contactFormValidation.js"></script>
 	</head>
 	<body>
 		<header class="header">
@@ -175,7 +177,70 @@
 					</div>
 				</div>
 			</div>
+			<div class="contact">
+				<div class="contact--wrapper">
+					<div class="contact--container container">
+						<div class="row">
+							<div class="contact__heading col-sm-12 col-lg-5">
+								<h1 class="contact__heading--heading">Meer weten over Starlease?</h1>
+								<p class="contact__heading--text">Laat je gegevens achter via onderstaand formulier en wij nemen zo spoeding mogelijk contact met u op</p>
 
+								<a class="contact__heading__email--link" href="email" target="blank">
+									<img class="contact__heading__email--svg" src="../../../Public/Svg/email.svg" alt="">
+									<p class="contact__heading__email--text">sales@starlease.nl</p>
+								</a>
+
+								<a class="contact__heading__phone--link" href="phone" target="blank">
+									<img class="contact__heading__phone--svg" src="../../../Public/Svg/phone.svg" alt="">
+									<p class="contact__heading__phone--text">0543 - 123 456</p>
+								</a>
+							</div>
+
+							<div class="contact__form--wrapper col-sm-12 col-lg-7">
+								<div class="contact__form--container">
+									<form class="contact__form" onsubmit="return validateForm()">
+										<div class="contact__form__block contact__form__block--name col-sm-12">
+											<label class="contact__form--label" for="name">Voor- en achternaam</label>
+											<input class="contact__form--input" type="text" id="name" required>
+										</div>
+										<div class="contact__form__block contact__form__block--adres col-sm-12">
+											<label class="contact__form--label" for="adres">Adres</label>
+											<input class="contact__form--input" type="text" id="adres" required>
+											<span class="contact__form--validation" id="adres-validation"></span>
+										</div>
+										<div class="contact__form__block contact__form__block--postalcode col-sm-12 col-md-4">
+											<label class="contact__form--label" for="postalcode">Postcode</label>
+											<input class="contact__form--input" type="text" id="postalcode" required>
+											<span class="contact__form--validation" id="postalcode-validation"></span>
+										</div>
+										<div class="contact__form__block contact__form__block--residence col-sm-12 col-md-8">
+											<label class="contact__form--label" for="residence">Woonplaats</label>
+											<input class="contact__form--input" type="text" id="residence" required>
+										</div>
+										<div class="contact__form__block contact__form__block--email col-sm-12 col-md-6">
+											<label class="contact__form--label" for="email">Emailadres</label>
+											<input class="contact__form--input" type="text" id="email" required>
+											<span class="contact__form--validation" id="email-validation"></span>
+										</div>
+										<div class="contact__form__block contact__form__block--phone col-sm-12 col-md-6">
+											<label class="contact__form--label" for="phone">Telefoons</label>
+											<input class="contact__form--input" type="text" id="phone" required>
+											<span class="contact__form--validation" id="phone-validation"></span>
+										</div>
+
+										<div class="contact__form__block contact__form__block--privacy col-sm-12 col-md-7">
+											<p>Door het versturen van uw gegevens gaat u akkoord met de <a href="" target="blank">algemene voorwaarden</a></p>
+										</div>
+										<div class="contact__form__block contact__form__block--submit col-sm-12 col-md-5">
+											<button class="contact__form--submit" type="submit">Versturen</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<footer class="footer">
 			<div class="footer--container container">

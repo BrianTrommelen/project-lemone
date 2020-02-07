@@ -1,0 +1,179 @@
+.contact {
+	position: relative;
+	&--wrapper {
+		padding: 20px 0;
+		background-color: $starLease-lightGrey;
+
+		&:before {
+			content: '';
+			display: block;
+			position: absolute;
+			left: 50%;
+			width: 60px;
+			top: -10px;
+			height: 25px;
+			background-color: $starLease-lightBlue;
+			transform: skewX(-15deg);
+		}
+		&:after {
+			content: '';
+			position: absolute;
+			display: block;
+			border-bottom: 50px solid $starLease-lightBlue;
+			border-right: 50px solid transparent;
+			bottom: 0;
+			left: 0;
+		}
+
+		@include breakpoint(medium) {
+			&:after {
+				border-bottom: 75px solid $starLease-lightBlue;
+				border-right: 75px solid transparent;
+			}
+		}
+	}
+
+	.contact__heading {
+		padding-bottom: 15px;
+		display: flex;
+		flex-direction: column;
+
+		&--text {
+			margin-top: 0;
+		}
+	}
+
+	.contact__heading__email, .contact__heading__phone {
+		display: block;
+
+		&--link {
+			display: flex;
+			padding: 10px 0;
+			text-decoration: none;
+		}
+
+		&--text {
+			margin: 0;
+			color: $starLease-purple;
+			font-weight: 600;
+			font-size: rem-calc(16px);
+			line-height: rem-calc(16px);
+
+		}
+
+		&--svg {
+			width: rem-calc(18px);
+			height: rem-calc(18px);
+		}
+
+		&--text {
+			margin: 0;
+			padding-left: 10px;
+			font-weight: 600;
+			font-size: rem-calc(16px);
+			line-height: 18px;
+			letter-spacing: 0.3px;
+			color: $starLease-lightBlue;
+		}
+	}
+
+	.contact__form {
+		display: flex;
+		flex-wrap: wrap;
+		padding-top: 15px;
+
+		&--wrapper {
+			padding-bottom: rem-calc(80px);
+
+			@include breakpoint(large) {
+				padding-top: 20px;
+			}
+		}
+
+		&--label {
+			position: relative;
+			margin-bottom: 10px;
+			color: $starLease-purple;
+			font-weight: 700;
+			line-height: 30px;
+		}
+
+		&--input {
+			padding: 10px;
+			height: rem-calc(40px);
+			font-size: rem-calc(16px);
+			outline-color: $starLease-lightBlue;
+			outline-width: rem-calc(2px);
+
+			@include breakpoint(medium) {
+				height: rem-calc(55px);
+				outline-width: rem-calc(4px);
+			}
+		}
+
+		&--submit {
+			@include pinkbutton;
+			display: block;
+			border: none;
+
+			@include breakpoint(medium) {
+				margin: 18px 0 18px auto;
+			}
+		}
+
+		&--validation {
+			padding: 5px;
+			color: $starLease-pink;
+			font-size: 14px;
+		}
+	}
+
+	.contact__form__block {
+		display: flex;
+		padding: 15px 0;
+		width: 100%;
+		flex-direction: column;
+
+		&:first-child {
+			padding-top: 0;
+		}
+
+		@include breakpoint(medium) {
+			&[class*="col-md"] {
+				&:nth-child(even) {
+					padding-left: 10px;
+				}
+				&:nth-child(odd) {
+					padding-right: 10px;
+				}
+				//Detect last 2 items
+				&:nth-last-child(-n+2) {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+		}
+
+		&--privacy {
+			display: block;
+
+			> p {
+				margin-bottom: 0;
+				font-size: rem-calc(18px);
+
+				@include breakpoint(medium) {
+					margin: 18px 0;
+				}
+			}
+
+			a {
+				color: $starLease-pink;
+				text-decoration: none;
+			}
+		}
+
+		&--submit {
+			display: block;
+		}
+	}
+}

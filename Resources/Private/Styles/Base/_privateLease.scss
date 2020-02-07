@@ -1,6 +1,10 @@
 .private-lease {
 	&--wrapper {
-		padding: 0 0 80px;
+		padding: 0 0 40px;
+
+		@include breakpoint(large) {
+			padding: 0 0 80px;
+		}
 	}
 	&--container {
 
@@ -61,8 +65,6 @@
 	}
 
 	.private-lease__information {
-		padding-bottom: 50px;
-
 		@include breakpoint(medium) {
 			padding-top: rem-calc(40px);
 
