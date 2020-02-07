@@ -1,6 +1,10 @@
 .ideal-car {
 	&--wrapper {
-		padding: 120px 0 80px;
+		padding: 40px 0 40px;
+
+		@include breakpoint(large) {
+			padding: 80px 0 80px;
+		}
 	}
 
 	.ideal-car__information {
